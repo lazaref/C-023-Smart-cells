@@ -1,0 +1,21 @@
+//C-023 Smart Cells //HajjHackathon2018 //Code for get data from all sensors of cells (ports,area State,Hamla cmd)
+
+define NC 100
+define NP 100
+define NH 20
+define NS 220
+bool cells[NC]; bool port[NP]; int hamlaIn[NH]; int allSensors[NS];
+
+void updateSensors(); void sendData(); void setup() { for(int i=0;i<NC ;i++){pinMode(i,INPUT);} for(int i=NC;i<NC+NP ;i++){pinMode(i,INPUT);}
+for(int i=NP;i<NP+NH ;i++){pinMode(i,INPUT);}
+Serial.begin(9600); }
+
+void loop() { updateSensors(); sendData();
+
+}
+
+void updateSensors() { for(int i=0;i<NC ;i++) { allSensors[i]=digitalRead(i); } for(int i=NC;i<NC+NP ;i++) { allSensors[i]=digitalRead(i); }
+for(int i=NP;i<NP+NH ;i++) { allSensors[i]=digitalRead(i); } }
+
+void sendData() { for(int i=0;i<NS;i++) Serial.print(allSensors[i]);
+}
